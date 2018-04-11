@@ -13,7 +13,7 @@
           <el-menu
             default-active="2"
             class="el-menu"
-            unique-opened="true"
+            :unique-opened="uniqueOpened"
             style="height:100%">
             <el-submenu index="1">
               <template slot="title">
@@ -68,7 +68,9 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      uniqueOpened: true // 每次只激活一个菜单展开
+    }
   }
 }
 </script>
