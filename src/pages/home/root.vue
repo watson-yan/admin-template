@@ -2,13 +2,16 @@
   <div class="home-page">
     <el-container style="height: 100%;">
       <!-- 侧边栏 -->
-      <el-aside style="width: 240px;">
+      <el-aside :style="{width: menuCollapse ? '64px' : '240px'}" class="app-aside">
         <el-container class="aside-container" style="height: 100%;">
           <!-- logo放置区域 -->
           <el-header class="padding0" style="background: #002140;">
             <div class="nav-header">
               <div class="container">
-                <span>Vue</span>
+                <a class="logo" href="/">
+                  <img src="/static/imgs/vue-logo.png" alt="">
+                  <h1>Vue Ant Design</h1>
+                </a>
               </div>
             </div>
           </el-header>
@@ -17,6 +20,8 @@
             <el-menu
               default-active="2"
               class="el-menu"
+              :collapse="menuCollapse"
+              mode="vertical"
               text-color="rgba(255, 255, 255, 0.65)"
               active-text-color="#fff"
               :unique-opened="uniqueOpened"
@@ -68,6 +73,26 @@
         <el-header class="padding0">
           <div class="nav-header main-header">
             <div class="container">
+              <a @click="menuCollapse = !menuCollapse">
+                <template v-if="menuCollapse">
+                  <svg style="width: 1.27148em; height: 1em; vertical-align: middle; fill: currentcolor; overflow: hidden; font-size: 24px;" viewBox="0 0 1302 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M138.666667 896l1024 0 0 128L138.666667 1024 138.666667 896 138.666667 896z" fill="#707070"></path>
+                    <path d="M522.666667 580.266667l640 0 0 128L522.666667 708.266667 522.666667 580.266667 522.666667 580.266667z" fill="#707070"></path>
+                    <path d="M522.666667 324.266667l640 0 0 128L522.666667 452.266667 522.666667 324.266667 522.666667 324.266667z" fill="#707070" data-spm-anchor-id="a313x.7781069.0.i4"></path>
+                    <path d="M138.666667 0l1024 0 0 128L138.666667 128 138.666667 0 138.666667 0z" fill="#707070"></path>
+                    <path d="M138.666667 290.133333l256 256L138.666667 733.866667 138.666667 290.133333 138.666667 290.133333z" fill="#707070"></path>
+                  </svg>
+                </template>
+                <template v-else>
+                  <svg style="width: 1.27148em; height: 1em; vertical-align: middle; fill: currentcolor; overflow: hidden; font-size: 24px;" viewBox="0 0 1302 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" data-spm-anchor-id="a313x.7781069.0.i4">
+                    <path d="M138.666667 896l1024 0 0 128L138.666667 1024 138.666667 896 138.666667 896z" fill="#707070"></path>
+                    <path d="M522.666667 580.266667l640 0 0 128L522.666667 708.266667 522.666667 580.266667 522.666667 580.266667z" fill="#707070"></path>
+                    <path d="M522.666667 324.266667l640 0 0 128L522.666667 452.266667 522.666667 324.266667 522.666667 324.266667z" fill="#707070"></path>
+                    <path d="M138.666667 0l1024 0 0 128L138.666667 128 138.666667 0 138.666667 0z" fill="#707070"></path>
+                    <path d="M394.666667 290.133333l0 452.266667L138.666667 546.133333 394.666667 290.133333 394.666667 290.133333z" fill="#707070"></path>
+                  </svg>
+                </template>
+              </a>
               <span>Vue</span>
             </div>
           </div>
@@ -85,6 +110,7 @@
 export default {
   data () {
     return {
+      menuCollapse: false,
       uniqueOpened: true // 每次只激活一个菜单展开
     }
   }
@@ -101,8 +127,22 @@ export default {
     .container {
       width: 1200px;
       margin: 0 auto;
-      padding: 0 30px;
+      padding: 0 15px;
       line-height: 60px;
+      .logo {
+        img {
+          height: 32px;
+          vertical-align: middle;
+        }
+        h1 {
+          display: inline-block;
+          margin: 0 0 0 12px;
+          color: #fff;
+          font-size: 20px;
+          font-weight: 600;
+          font-family: "Myriad Pro","Helvetica Neue",Arial,Helvetica,sans-serif;
+        }
+      }
     }
     &.main-header {
       background: #fff;
@@ -110,43 +150,47 @@ export default {
       box-shadow: 0 1px 4px rgba(0,21,41,.08);
     }
   }
-  .aside-container {
-    box-shadow: 2px 0 6px rgba(0,21,41,.35);
-    .app-menu {
-      background-color: #00142a;
-      &>.el-menu {
+  .app-aside {
+    transition: all linear .1s;
+    .aside-container {
+      box-shadow: 2px 0 6px rgba(0,21,41,.35);
+      .app-menu {
         background-color: #00142a;
-      }
-      .el-submenu{
-        .el-menu--inline {
-          background: #000;
+        // 针对 菜单栏进行定制
+        &>.el-menu {
+          background-color: #00142a;
         }
-        .el-submenu__title {
+        .el-submenu{
+          .el-menu--inline {
+            background: #000;
+          }
+          .el-submenu__title {
+            height: 40px;
+            line-height: 40px;
+            &:focus, &:hover {
+              outline: 0;
+              color: #fff !important;
+              background-color: inherit;
+            }
+          }
+          &.is-active, &.is-opened {
+            &>.el-submenu__title {
+              color: #fff !important;
+            }
+          }
+        }
+        .el-menu-item {
+          margin: 4px 0;
           height: 40px;
           line-height: 40px;
+          &.is-active {
+            background-color: #1890ff !important;
+          }
           &:focus, &:hover {
             outline: 0;
             color: #fff !important;
             background-color: inherit;
           }
-        }
-        &.is-active, &.is-opened {
-          &>.el-submenu__title {
-            color: #fff !important;
-          }
-        }
-      }
-      .el-menu-item {
-        margin: 4px 0;
-        height: 40px;
-        line-height: 40px;
-        &.is-active {
-          background-color: #1890ff !important;
-        }
-        &:focus, &:hover {
-          outline: 0;
-          color: #fff !important;
-          background-color: inherit;
         }
       }
     }

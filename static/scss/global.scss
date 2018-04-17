@@ -5,3 +5,18 @@ html, body {
   height: 100%;
   font-size: 14px;
 }
+
+.el-menu {
+  // 弹出菜单
+  &.el-menu--popup {
+    background: #00142a;
+    .el-menu-item {
+      height: 40px;
+      line-height: 40px;
+      &:hover {
+        color: #fff !important;
+        background-color: inherit;
+      }
+    }
+  }
+}
