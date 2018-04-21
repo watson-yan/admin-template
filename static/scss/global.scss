@@ -6,6 +6,9 @@ html, body {
   font-size: 14px;
 }
 
+@import './common.scss';
+
+// 针对element-ui菜单栏定制
 .el-menu {
   // 弹出菜单
   &.el-menu--popup {
@@ -17,6 +20,13 @@ html, body {
         color: #fff !important;
         background-color: inherit;
       }
+      &.is-active {
+        background: #1890ff !important;
+      }
     }
   }
+}
+// 面包屑导航定制
+.el-breadcrumb {
+  margin-bottom: 16px;
 }

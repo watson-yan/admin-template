@@ -1,0 +1,38 @@
+// 头像样式
+.avatar {
+  border-radius: 100%;
+  vertical-align: middle;
+}
+
+.text {
+  &.small {
+    font: .8rem;
+  }
+}
+
+// 浮动
+.fl-left {
+  float: left;
+}
+.fl-right {
+  float: right;
+}
+// 清除浮动
+.clear-fix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+// 文本位置
+.align-center {
+  text-align: center
+}
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}

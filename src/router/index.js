@@ -3,7 +3,8 @@ import Router from 'vue-router'
 
 // 路由页面
 const Login = () => import(/* webpackChunkName: "group-login" */ '@/pages/login/index')
-const Home = () => import(/* webpackChunkName: "group-login" */ '@/pages/home/root')
+const Home = () => import(/* webpackChunkName: "group-home" */ '@/pages/home/root')
+const Index = () => import(/* webpackChunkName: "group-home" */ '@/pages/home/index')
 
 Vue.use(Router)
 
@@ -18,7 +19,10 @@ export default new Router({
     {
       path: '/home',
       name: '主页',
-      component: Home
+      component: Home,
+      children: [
+        { path: '', name: '控制台', component: Index }
+      ]
     }
   ]
 })
