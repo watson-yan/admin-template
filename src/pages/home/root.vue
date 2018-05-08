@@ -18,31 +18,29 @@
           <!-- 菜单放置区域 -->
           <el-main class="app-menu padding0">
             <el-menu
-              default-active="2"
+              @select="selectHandler"
+              :default-active="activeMenu"
               class="el-menu"
               :collapse="menuCollapse"
               mode="vertical"
+              :router="true"
               text-color="rgba(255, 255, 255, 0.65)"
               active-text-color="#fff"
-              :unique-opened="uniqueOpened"
+              :unique-opened="true"
               style="height:100%; border-color:#00142a; ">
-              <el-submenu index="1">
+              <!-- 控制面板模块 -->
+              <el-submenu index="/home/dashboard">
                 <template slot="title">
-                  <i class="el-icon-location"></i>
-                  <span>导航一</span>
+                  <i class="fa fa-dashboard"></i>
+                  <span>控制面板</span>
                 </template>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-
-                <el-menu-item index="1-3">选项1</el-menu-item>
-                <el-menu-item index="1-4">选项2</el-menu-item>
-
-                <el-menu-item index="1-5">选项1</el-menu-item>
-                <el-menu-item index="1-6">选项2</el-menu-item>
+                <el-menu-item index="/home/dashboard/analysis">分析页</el-menu-item>
+                <el-menu-item index="/home/dashboard/monitor">监控页</el-menu-item>
+                <el-menu-item index="/home/dashboard/workplace">工作台</el-menu-item>
               </el-submenu>
-              <el-menu-item index="2">
+              <el-menu-item index="/home/form">
                 <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
+                <span slot="title">表单页</span>
               </el-menu-item>
               <el-menu-item index="3" disabled>
                 <i class="el-icon-document"></i>
@@ -121,7 +119,7 @@
             </div>
           </div>
         </el-header>
-        <el-main>
+        <el-main style="background-color: #f0f2f5;">
           <div>
             <router-view/>
           </div>
@@ -135,7 +133,12 @@ export default {
   data () {
     return {
       menuCollapse: false,
-      uniqueOpened: true // 每次只激活一个菜单展开
+      activeMenu: '/home/dashboard/analysis'
+    }
+  },
+  methods: {
+    selectHandler (key, keyPath) {
+      this.activeMenu = keyPath[keyPath.length - 1]
     }
   }
 }
@@ -171,24 +174,27 @@ export default {
       background: #fff;
       color: #333;
       box-shadow: 0 1px 4px rgba(0,21,41,.08);
-      .collapse-menu {
-        display: inline-block;
-        padding: 0 15px;
-        &:hover {
-          background: #e6f7ff;
-          cursor: pointer;
-        }
-      }
-      .main-header_options {
-        a {
+      .container {
+        padding: 0 15px 0 0;
+        .collapse-menu {
           display: inline-block;
-          padding: 0 15px;
-          i {
-            font-size: 1.4rem;
-          }
+          padding: 0 20px;
           &:hover {
             background: #e6f7ff;
             cursor: pointer;
+          }
+        }
+        .main-header_options {
+          a {
+            display: inline-block;
+            padding: 0 15px;
+            i {
+              font-size: 1.4rem;
+            }
+            &:hover {
+              background: #e6f7ff;
+              cursor: pointer;
+            }
           }
         }
       }
